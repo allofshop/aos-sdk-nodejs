@@ -9,13 +9,13 @@ type IssueCouponByInputBody = {
 };
 
 export async function getCoupon(query: GetCouponByInputQuery) {
-  await lite.request('GET', 'coupons', { query });
+  return await lite.request('GET', 'coupons', { query });
 }
 
 export async function issueCouponByInput(body: IssueCouponByInputBody) {
-  await lite.request('POST', 'coupons', { body });
+  return await lite.request('POST', 'coupons', { body });
 }
 
 export async function issueCouponByDownload(counponId: string) {
-  await lite.request('POST', `coupons/${counponId}/issue`);
+  return await lite.request('POST', `coupons/${counponId}/issue`);
 }

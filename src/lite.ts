@@ -11,15 +11,15 @@ interface Headers {
   'x-aos-signature': string;
 }
 
-type BodyDictionary = {
-  [key: string]: string | number | boolean | Date | BodyDictionary | any[];
+type BodyDict = {
+  [key: string]: string | number | boolean | Date | BodyDict | any[];
 };
 type QueryDict = {
   [key: string]: string | number | boolean | Date | QueryDict | any[];
 };
 
 interface DataType {
-  body?: BodyDictionary;
+  body?: BodyDict;
   query?: QueryDict;
 }
 
@@ -58,7 +58,6 @@ export async function request(
       }
       realPath = realPath.slice(0, realPath.length - 1);
     }
-    // TODO:POST인 경우 body를 받는다
     if (data.body !== undefined) {
       bodyData = data.body;
     }

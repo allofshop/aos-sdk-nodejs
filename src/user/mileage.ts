@@ -31,5 +31,5 @@ type GetMileagesQuery = {
 };
 
 export async function getUserMileages(query: GetMileagesQuery) {
-  await lite.request('GET', `users/me/mileages`, { query });
+  return await lite.request('GET', `users/me/mileages`, { query });
 }

@@ -122,26 +122,33 @@ type GetSubscriptionsQuery = {
 };
 
 export async function createUserSubscription(body: CreateSubscriptionBody) {
-  await lite.request('POST', `users/me/subscriptions`, { body });
+  return await lite.request('POST', `users/me/subscriptions`, { body });
 }
 
 export async function getUserSubscription(subscriptionId: string) {
-  await lite.request('GET', `users/me/subscriptions/${subscriptionId}`);
+  return await lite.request('GET', `users/me/subscriptions/${subscriptionId}`);
 }
 
 export async function updateUserSubscription(
   subscriptionId: string,
   body: UpdateSubscriptionBody
 ) {
-  await lite.request('PATCH', `users/me/subscriptions/${subscriptionId}`, {
-    body,
-  });
+  return await lite.request(
+    'PATCH',
+    `users/me/subscriptions/${subscriptionId}`,
+    {
+      body,
+    }
+  );
 }
 
 export async function deleteUserSubscription(subscriptionId: string) {
-  await lite.request('DELETE', `users/me/subscriptions/${subscriptionId}`);
+  return await lite.request(
+    'DELETE',
+    `users/me/subscriptions/${subscriptionId}`
+  );
 }
 
 export async function getUserSubscriptions(query: GetSubscriptionsQuery) {
-  await lite.request('GET', `users/me/subscriptions`, { query });
+  return await lite.request('GET', `users/me/subscriptions`, { query });
 }

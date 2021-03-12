@@ -94,9 +94,9 @@ type GetProductsQuery = {
 };
 
 export async function getProduct(productId: string) {
-  await lite.request('GET', `products/${productId}`);
+  return await lite.request('GET', `products/${productId}`);
 }
 
 export async function getProducts(query: GetProductsQuery) {
-  await lite.request('GET', 'products', { query });
+  return await lite.request('GET', 'products', { query });
 }

@@ -34,9 +34,9 @@ type GetOrdersQuery = {
 };
 
 export async function getUserOrder(orderId: string) {
-  await lite.request('GET', `users/me/orders/${orderId}`);
+  return await lite.request('GET', `users/me/orders/${orderId}`);
 }
 
 export async function getUserOrders(query: GetOrdersQuery) {
-  await lite.request('GET', `users/me/orders`, { query });
+  return await lite.request('GET', `users/me/orders`, { query });
 }

@@ -122,15 +122,15 @@ type DoneOrderBody = {
 };
 
 export async function createOrder(body: CreateOrderBody) {
-  await lite.request('POST', `orders`, { body });
+  return await lite.request('POST', `orders`, { body });
 }
 
 export async function getOrder(orderId: string) {
-  await lite.request('GET', `orders/${orderId}`);
+  return await lite.request('GET', `orders/${orderId}`);
 }
 
 export async function updateOrder(orderId: string, body: UpdateOrderBody) {
-  await lite.request('PATCH', `orders/${orderId}`, { body });
+  return await lite.request('PATCH', `orders/${orderId}`, { body });
 }
 
 export async function updateOrderItem(
@@ -138,19 +138,26 @@ export async function updateOrderItem(
   orderItemId: string,
   body: UpdateOrderItemBody
 ) {
-  await lite.request('PATCH', `orders/${orderId}/orderItems/${orderItemId}`, {
-    body,
-  });
+  return await lite.request(
+    'PATCH',
+    `orders/${orderId}/orderItems/${orderItemId}`,
+    {
+      body,
+    }
+  );
 }
 
 export async function deleteOrderItem(orderId: string, orderItemId: string) {
-  await lite.request('DELETE', `orders/${orderId}/orderItems/${orderItemId}`);
+  return await lite.request(
+    'DELETE',
+    `orders/${orderId}/orderItems/${orderItemId}`
+  );
 }
 
 export async function checkoutOrder(orderId: string, body: CheckoutOrderBody) {
-  await lite.request('POST', `orders/${orderId}/checkout`, { body });
+  return await lite.request('POST', `orders/${orderId}/checkout`, { body });
 }
 
 export async function doneOrder(orderId: string, body: DoneOrderBody) {
-  await lite.request('POST', `orders/${orderId}/done`, { body });
+  return await lite.request('POST', `orders/${orderId}/done`, { body });
 }

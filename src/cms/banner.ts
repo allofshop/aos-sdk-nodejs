@@ -5,5 +5,5 @@ type GetBannersQuery = {
 };
 
 export async function getBanners(query: GetBannersQuery) {
-  await lite.request('GET', 'banners', { query });
+  return await lite.request('GET', 'banners', { query });
 }

@@ -23,9 +23,9 @@ type GetCouponsQuery = {
 };
 
 export async function getUserCoupon(userCouponId: string) {
-  await lite.request('GET', `users/me/coupons/${userCouponId}`);
+  return await lite.request('GET', `users/me/coupons/${userCouponId}`);
 }
 
 export async function getUserCoupons(query: GetCouponsQuery) {
-  await lite.request('GET', `users/me/coupons`, { query });
+  return await lite.request('GET', `users/me/coupons`, { query });
 }

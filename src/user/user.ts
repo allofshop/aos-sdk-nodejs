@@ -34,25 +34,29 @@ type GetReviewWriteableOrderItemsQuery = {
 };
 
 export async function getUser() {
-  await lite.request('GET', `users/me`);
+  return await lite.request('GET', `users/me`);
 }
 
 export async function updateUser(body: UpdateUserBody) {
-  await lite.request('PATCH', `users/me`, { body });
+  return await lite.request('PATCH', `users/me`, { body });
 }
 
 export async function deleteUser() {
-  await lite.request('DELETE', `users/me`);
+  return await lite.request('DELETE', `users/me`);
 }
 
 export async function updatePassword(body: UpdatePasswordBody) {
-  await lite.request('POST', `users/me/changePassword`, { body });
+  return await lite.request('POST', `users/me/changePassword`, { body });
 }
 
 export async function getReviewWriteableOrderItems(
   query: GetReviewWriteableOrderItemsQuery
 ) {
-  await lite.request('GET', `users/me/orderItems/getReviewWriteableList`, {
-    query,
-  });
+  return await lite.request(
+    'GET',
+    `users/me/orderItems/getReviewWriteableList`,
+    {
+      query,
+    }
+  );
 }

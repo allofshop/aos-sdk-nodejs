@@ -39,18 +39,18 @@ type GetDeliveryAdressesQuery = {
 export async function createUserDeliveryAddress(
   body: CreateDeliveryAddressBody
 ) {
-  await lite.request('POST', `users/me/deliveryAddresses`, { body });
+  return await lite.request('POST', `users/me/deliveryAddresses`, { body });
 }
 
 export async function getDefaultUserDeilveryAddress() {
-  await lite.request('GET', `users/me/deliveryAddresses/default`);
+  return await lite.request('GET', `users/me/deliveryAddresses/default`);
 }
 
 export async function updateUserDeliveryAddress(
   deliveryAddressId: string,
   body: UpdateDeliveryAddressBody
 ) {
-  await lite.request(
+  return await lite.request(
     'PATCH',
     `users/me/deliveryAddresses/${deliveryAddressId}`,
     { body }
@@ -58,7 +58,7 @@ export async function updateUserDeliveryAddress(
 }
 
 export async function deleteUserDeliveryAddress(deliveryAddressId: string) {
-  await lite.request(
+  return await lite.request(
     'DELETE',
     `users/me/deliveryAddresses/${deliveryAddressId}`
   );
@@ -67,5 +67,5 @@ export async function deleteUserDeliveryAddress(deliveryAddressId: string) {
 export async function getUserDeliveryAddresses(
   query: GetDeliveryAdressesQuery
 ) {
-  await lite.request('GET', `users/me/deliveryAddresses`, { query });
+  return await lite.request('GET', `users/me/deliveryAddresses`, { query });
 }

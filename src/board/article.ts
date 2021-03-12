@@ -85,32 +85,32 @@ type VoteArticleBody = {
 };
 
 export async function createArticle(body: CreateArticleBody) {
-  await lite.request('POST', 'articles', { body });
+  return await lite.request('POST', 'articles', { body });
 }
 
 export async function getArticle(articleId: string) {
-  await lite.request('GET', `articles/${articleId}`);
+  return await lite.request('GET', `articles/${articleId}`);
 }
 
 export async function updateArticle(
   articleId: string,
   body: UpdateArticleBody
 ) {
-  await lite.request('PATCH', `articles/${articleId}`, { body });
+  return await lite.request('PATCH', `articles/${articleId}`, { body });
 }
 
 export async function deleteArticle(articleId: string) {
-  await lite.request('DELETE', `articles/${articleId}`);
+  return await lite.request('DELETE', `articles/${articleId}`);
 }
 
 export async function getArticles(query: GetArticlesQuery) {
-  await lite.request('GET', 'articles', { query });
+  return await lite.request('GET', 'articles', { query });
 }
 
 export async function voteArticle(articleId: string, body: VoteArticleBody) {
-  await lite.request('POST', `articles/${articleId}/vote`, { body });
+  return await lite.request('POST', `articles/${articleId}/vote`, { body });
 }
 
 export async function cancelVoteArticle(articleId: string) {
-  await lite.request('DELETE', `articles/${articleId}/vote`);
+  return await lite.request('DELETE', `articles/${articleId}/vote`);
 }

@@ -125,18 +125,21 @@ type GetCustomerServiceStatsQuery = {
 export async function createUserCustomerService(
   body: CreateCustomerServiceBody
 ) {
-  await lite.request('POST', `users/me/customerServices`, { body });
+  return await lite.request('POST', `users/me/customerServices`, { body });
 }
 
 export async function getUserCustomerService(customerServiceId: string) {
-  await lite.request('GET', `users/me/customerServices/${customerServiceId}`);
+  return await lite.request(
+    'GET',
+    `users/me/customerServices/${customerServiceId}`
+  );
 }
 
 export async function updateUserCustomerService(
   customerServiceId: string,
   body: any
 ) {
-  await lite.request(
+  return await lite.request(
     'PATCH',
     `users/me/customerServices/${customerServiceId}`,
     body
@@ -144,18 +147,20 @@ export async function updateUserCustomerService(
 }
 
 export async function deleteUserCustomerService(customerServiceId: string) {
-  await lite.request(
+  return await lite.request(
     'DELETE',
     `users/me/customerServices/${customerServiceId}`
   );
 }
 
 export async function getUserCustomerServices(query: GetCustomerServicesQuery) {
-  await lite.request('GET', `users/me/customerServices`, { query });
+  return await lite.request('GET', `users/me/customerServices`, { query });
 }
 
 export async function getUserCustomerServiceStats(
   query: GetCustomerServiceStatsQuery
 ) {
-  await lite.request('GET', `users/me/customerServices/getStats`, { query });
+  return await lite.request('GET', `users/me/customerServices/getStats`, {
+    query,
+  });
 }

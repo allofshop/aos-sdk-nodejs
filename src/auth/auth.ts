@@ -45,7 +45,7 @@ lite.initialize({
 });
 
 export async function login() {
-  await lite.request('POST', 'auth/login');
+  return await lite.request('POST', 'auth/login');
 }
 
 export async function join(body: JoinBody) {
@@ -53,23 +53,25 @@ export async function join(body: JoinBody) {
 }
 
 export async function logout(body: LogoutBody) {
-  await lite.request('POST', 'auth/logout', { body });
+  return await lite.request('POST', 'auth/logout', { body });
 }
 
 export async function snsLogin() {
-  await lite.request('POST', 'auth/snsLogin');
+  return await lite.request('POST', 'auth/snsLogin');
 }
 
 export async function requestVerificationMessage(
   body: RequestVerificationMessageBody
 ) {
-  await lite.request('POST', 'auth/requestVerificationMessage', { body });
+  return await lite.request('POST', 'auth/requestVerificationMessage', {
+    body,
+  });
 }
 
 export async function changePassword(body: ChanagePasswordBody) {
-  await lite.request('POST', 'auth/changePassword', { body });
+  return await lite.request('POST', 'auth/changePassword', { body });
 }
 
 export async function guestLogin() {
-  await lite.request('POST', 'auth/guestLogin');
+  return await lite.request('POST', 'auth/guestLogin');
 }

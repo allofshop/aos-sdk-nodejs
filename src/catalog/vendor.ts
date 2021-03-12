@@ -7,9 +7,9 @@ type GetVendorsQuery = {
 };
 
 export async function getVendor(vendorId: string) {
-  await lite.request('GET', `vendors/${vendorId}`);
+  return await lite.request('GET', `vendors/${vendorId}`);
 }
 
 export async function getVendors(query: GetVendorsQuery) {
-  await lite.request('GET', 'vendors', { query });
+  return await lite.request('GET', 'vendors', { query });
 }

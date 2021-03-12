@@ -8,9 +8,9 @@ type GetBoardsQuery = {
 };
 
 export async function getBoard(boardId: string) {
-  await lite.request('GET', `boards/${boardId}`);
+  return await lite.request('GET', `boards/${boardId}`);
 }
 
 export async function getBoards(query: GetBoardsQuery) {
-  await lite.request('GET', 'boards', { query });
+  return await lite.request('GET', 'boards', { query });
 }

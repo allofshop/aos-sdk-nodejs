@@ -25,7 +25,7 @@ export async function createComment(
   articleId: string,
   body: CreateCommentBody
 ) {
-  await lite.request(
+  return await lite.request(
     'POST',
     `boards/${boardId}/articles/${articleId}/comments`,
     { body }
@@ -38,7 +38,7 @@ export async function updateComment(
   commentId: string,
   body: UpdateCommentBody
 ) {
-  await lite.request(
+  return await lite.request(
     'PATCH',
     `boards/${boardId}/articles/${articleId}/comments/${commentId}`,
     { body }
@@ -50,7 +50,7 @@ export async function deleteComment(
   articleId: string,
   commentId: string
 ) {
-  await lite.request(
+  return await lite.request(
     'DELETE',
     `boards/${boardId}/articles/${articleId}/comments/${commentId}`
   );
@@ -61,7 +61,7 @@ export async function getComments(
   articleId: string,
   query: GetCommentsQuery
 ) {
-  await lite.request(
+  return await lite.request(
     'GET',
     `boards/${boardId}/articles/${articleId}/comments`,
     { query }

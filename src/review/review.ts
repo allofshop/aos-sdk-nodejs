@@ -59,29 +59,29 @@ type VoteReviewBody = {
 };
 
 export async function createReview(body: CreateReviewBody) {
-  await lite.request('POST', 'reviews', { body });
+  return await lite.request('POST', 'reviews', { body });
 }
 
 export async function getReview(reviewId: string) {
-  await lite.request('GET', `reviews/${reviewId}`);
+  return await lite.request('GET', `reviews/${reviewId}`);
 }
 
 export async function updateReview(reviewId: string, body: UpdateReviewBody) {
-  await lite.request('PATCH', `reviews/${reviewId}`, { body });
+  return await lite.request('PATCH', `reviews/${reviewId}`, { body });
 }
 
 export async function deleteReview(reviewId: string) {
-  await lite.request('DELETE', `reviews/${reviewId}`);
+  return await lite.request('DELETE', `reviews/${reviewId}`);
 }
 
 export async function getReviews(query: GetReviewsQuery) {
-  await lite.request('GET', 'reviews', { query });
+  return await lite.request('GET', 'reviews', { query });
 }
 
 export async function voteReview(reviewId: string, body: VoteReviewBody) {
-  await lite.request('POST', `reviews/${reviewId}/vote`, { body });
+  return await lite.request('POST', `reviews/${reviewId}/vote`, { body });
 }
 
 export async function cancelVoteReview(reviewId: string) {
-  await lite.request('DELETE', `reviews/${reviewId}/vote`);
+  return await lite.request('DELETE', `reviews/${reviewId}/vote`);
 }

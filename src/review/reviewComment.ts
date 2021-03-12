@@ -12,11 +12,11 @@ export async function createReviewComment(
   reviewId: string,
   body: CreateReviewCommentBody
 ) {
-  await lite.request('POST', `reviews/${reviewId}/comments`, { body });
+  return await lite.request('POST', `reviews/${reviewId}/comments`, { body });
 }
 
 export async function getReviewComment(reviewId: string, commentId: string) {
-  await lite.request('GET', `reviews/${reviewId}/comments/${commentId}`);
+  return await lite.request('GET', `reviews/${reviewId}/comments/${commentId}`);
 }
 
 export async function updateReviewComment(
@@ -24,15 +24,22 @@ export async function updateReviewComment(
   commentId: string,
   body: UpdateReviewCommentBody
 ) {
-  await lite.request('PATCH', `reviews/${reviewId}/comments/${commentId}`, {
-    body,
-  });
+  return await lite.request(
+    'PATCH',
+    `reviews/${reviewId}/comments/${commentId}`,
+    {
+      body,
+    }
+  );
 }
 
 export async function deleteReviewComment(reviewId: string, commentId: string) {
-  await lite.request('DELETE', `reviews/${reviewId}/comments/${commentId}`);
+  return await lite.request(
+    'DELETE',
+    `reviews/${reviewId}/comments/${commentId}`
+  );
 }
 
 export async function getReviewComments(reviewId: string, query: any) {
-  await lite.request('GET', `reviews/${reviewId}/comments`, { query });
+  return await lite.request('GET', `reviews/${reviewId}/comments`, { query });
 }
