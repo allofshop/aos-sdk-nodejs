@@ -1,19 +1,5 @@
-export class BodyShouldBeObject extends Error {
-  constructor() {
-    super();
-    this.message = 'Body should be object';
-  }
-}
-
-export class QueryShouldBeObject extends Error {
-  constructor() {
-    super();
-    this.message = 'Query should be object';
-  }
-}
-
 export class ValueShouldBeString extends Error {
-  location: string;
+  private location: string;
   constructor(location: string) {
     super();
     this.location = location;
@@ -22,7 +8,7 @@ export class ValueShouldBeString extends Error {
 }
 
 export class ValueShouldBeObject extends Error {
-  location: string;
+  private location: string;
   constructor(location: string) {
     super();
     this.location = location;
@@ -31,10 +17,46 @@ export class ValueShouldBeObject extends Error {
 }
 
 export class ValueShouldBeEnum extends Error {
-  location: string;
+  private location: string;
   constructor(location: string) {
     super();
     this.location = location;
     this.message = `${this.location} should be enum`;
+  }
+}
+
+export class ValueShouldBeBoolean extends Error {
+  private location: string;
+  constructor(location: string) {
+    super();
+    this.location = location;
+    this.message = `${this.location} should be boolean`;
+  }
+}
+
+export class ValueShouldBeArray extends Error {
+  private location: string;
+  constructor(location: string) {
+    super();
+    this.location = location;
+    this.message = `${this.location} should be array`;
+  }
+}
+
+export class ValueShouldBeDate extends Error {
+  private location: string;
+  constructor(location: string) {
+    super();
+    this.location = location;
+    this.message = `${this.location} should be date`;
+  }
+}
+
+export class ValueShouldBeNumber extends Error {
+  private location: string;
+  constructor(location: string) {
+    super();
+    this.location = location;
+    this.message = `${this.location} should be number`;
   }
 }
