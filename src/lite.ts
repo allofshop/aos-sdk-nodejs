@@ -53,8 +53,17 @@ export async function request(
     }
     if (data.query !== undefined) {
       realPath += '?';
+      /**
+       * api.foo.bar/datas?ids=1,2,3
+       * api.foo.bar/datas?ids[]=1,2,3
+       * api.foo.bar/datas?ids=1&ids=2&ids=3
+       */
       for (const key in data.query) {
-        realPath += `${key}=${data.query[key]}&`;
+        if (data.query[key].hasOwnProperty('length')) {
+          realPath += `${key}=[]${data.query[key]}&`;
+        } else {
+          realPath += `${key}=${data.query[key]}&`;
+        }
       }
       realPath = realPath.slice(0, realPath.length - 1);
     }
