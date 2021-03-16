@@ -1,19 +1,19 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
-import { GetBoardsQuery } from './type';
-import { GetQueryChecker } from './typeChecker';
+import { FindDto } from './type';
+import { FindValidator } from './validator';
 
 export async function getBoard(boardId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(boardId, 'boardId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(boardId, 'boardId');
 
   return await lite.request('GET', `boards/${boardId}`);
 }
 
-export async function getBoards(query: GetBoardsQuery) {
-  const getQueryChecker: GetQueryChecker = new GetQueryChecker();
-  getQueryChecker.checkQuery(query, 'query');
+export async function getBoards(query: FindDto) {
+  const findValidator: FindValidator = new FindValidator();
+  findValidator.validate(query, 'query');
 
   return await lite.request('GET', 'boards', { query });
 }

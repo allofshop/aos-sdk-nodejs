@@ -1,24 +1,24 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
-import { CreateCommentBody, GetCommentsQuery, UpdateCommentBody } from './type';
+import { CreateDto, FindByArticleIdDto, UpdateOneByIdDto } from './type';
 import {
-  CreateBodyChecker,
-  GetQueryChecker,
-  UpdateBodyChecker,
-} from './typeChecker';
+  CreateValidator,
+  FindByArticleIdValidator,
+  UpdateOneByIdValidator,
+} from './validator';
 
 export async function createComment(
   boardId: string,
   articleId: string,
-  body: CreateCommentBody
+  body: CreateDto
 ) {
-  const stringChecker = new StringChecker();
-  stringChecker.check(boardId, 'boardId');
-  stringChecker.check(articleId, 'articleId');
+  const stringValidator = new StringValidator();
+  stringValidator.validate(boardId, 'boardId');
+  stringValidator.validate(articleId, 'articleId');
 
-  const createBodyChecker = new CreateBodyChecker();
-  createBodyChecker.checkBody(body, 'body');
+  const createValidator = new CreateValidator();
+  createValidator.validate(body, 'body');
 
   return await lite.request(
     'POST',
@@ -31,15 +31,15 @@ export async function updateComment(
   boardId: string,
   articleId: string,
   commentId: string,
-  body: UpdateCommentBody
+  body: UpdateOneByIdDto
 ) {
-  const stringChecker = new StringChecker();
-  stringChecker.check(boardId, 'boardId');
-  stringChecker.check(articleId, 'articleId');
-  stringChecker.check(commentId, 'commentId');
+  const stringValidator = new StringValidator();
+  stringValidator.validate(boardId, 'boardId');
+  stringValidator.validate(articleId, 'articleId');
+  stringValidator.validate(commentId, 'commentId');
 
-  const updateBodyChecker = new UpdateBodyChecker();
-  updateBodyChecker.checkBody(body, 'body');
+  const updateOneByIdValidator = new UpdateOneByIdValidator();
+  updateOneByIdValidator.validate(body, 'body');
 
   return await lite.request(
     'PATCH',
@@ -53,10 +53,10 @@ export async function deleteComment(
   articleId: string,
   commentId: string
 ) {
-  const stringChecker = new StringChecker();
-  stringChecker.check(boardId, 'boardId');
-  stringChecker.check(articleId, 'articleId');
-  stringChecker.check(commentId, 'commentId');
+  const stringValidator = new StringValidator();
+  stringValidator.validate(boardId, 'boardId');
+  stringValidator.validate(articleId, 'articleId');
+  stringValidator.validate(commentId, 'commentId');
 
   return await lite.request(
     'DELETE',
@@ -67,14 +67,14 @@ export async function deleteComment(
 export async function getComments(
   boardId: string,
   articleId: string,
-  query: GetCommentsQuery
+  query: FindByArticleIdDto
 ) {
-  const stringChecker = new StringChecker();
-  stringChecker.check(boardId, 'boardId');
-  stringChecker.check(articleId, 'articleId');
+  const stringValidator = new StringValidator();
+  stringValidator.validate(boardId, 'boardId');
+  stringValidator.validate(articleId, 'articleId');
 
-  const getQueryChecker = new GetQueryChecker();
-  getQueryChecker.checkQuery(query, 'query');
+  const findByArticleIdValidator = new FindByArticleIdValidator();
+  findByArticleIdValidator.validate(query, 'query');
 
   return await lite.request(
     'GET',

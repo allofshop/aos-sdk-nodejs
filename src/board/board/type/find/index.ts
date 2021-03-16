@@ -1,4 +1,4 @@
-export type GetBoardsQuery = {
+export type FindDto = {
   displayable?: boolean;
   categories?: string[];
   slug?: string;
