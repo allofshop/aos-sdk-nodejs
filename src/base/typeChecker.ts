@@ -8,7 +8,7 @@ import {
   ValueShouldBeString,
 } from './error';
 import { DateQuery, NumberQuery } from './type';
-import { SortType } from './vo';
+import { ReputationScore, SortType } from './vo';
 
 export class StringChecker {
   public check(value: string, location: string) {
@@ -134,16 +134,21 @@ export class SortQueryChecker {
     this.objectChecker = new ObjectChecker();
   }
 
-  public check(query: Record<string, SortType>, location: string) {
-    this.objectChecker.check(query, location);
+  public check(sort: Record<string, SortType>, location: string) {
+    this.objectChecker.check(sort, location);
 
-    for (const property in query) {
-      if (
-        query[property] !== SortType.ASC &&
-        query[property] !== SortType.DESC
-      ) {
+    for (const property in sort) {
+      if (sort[property] !== SortType.ASC && sort[property] !== SortType.DESC) {
         throw new ValueShouldBeEnum(`${location}.${property}`);
       }
+    }
+  }
+}
+
+export class ReputationScoreChecker {
+  public check(type: ReputationScore, location: string) {
+    if (type !== ReputationScore.LIKE && type !== ReputationScore.DISLIKE) {
+      throw new ValueShouldBeEnum(location);
     }
   }
 }

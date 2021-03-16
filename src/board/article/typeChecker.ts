@@ -5,6 +5,7 @@ import {
   DateQueryChecker,
   NumberQueryChecker,
   ObjectChecker,
+  ReputationScoreChecker,
   SortQueryChecker,
   StringArrayChecker,
   StringChecker,
@@ -17,7 +18,7 @@ import {
   UpdateArticleBody,
   VoteArticleBody,
 } from './type';
-import { ArticleStatus, ReputationScore } from './vo';
+import { ArticleStatus } from './vo';
 
 class AuthorChecker {
   private objectChecker: ObjectChecker;
@@ -164,7 +165,6 @@ export class UpdateBodyChecker {
 export class GetQueryChecker {
   private stringChecker: StringChecker;
   private booleanChecker: BooleanChecker;
-  private objectChecker: ObjectChecker;
   private numberQueryChecker: NumberQueryChecker;
   private dateQueryChecker: DateQueryChecker;
   private sortQueryChecker: SortQueryChecker;
@@ -172,7 +172,6 @@ export class GetQueryChecker {
   constructor() {
     this.stringChecker = new StringChecker();
     this.booleanChecker = new BooleanChecker();
-    this.objectChecker = new ObjectChecker();
     this.numberQueryChecker = new NumberQueryChecker();
     this.dateQueryChecker = new DateQueryChecker();
     this.sortQueryChecker = new SortQueryChecker();
@@ -243,20 +242,15 @@ export class GetQueryChecker {
 
 export class VoteBodyChecker {
   private objectChecker: ObjectChecker;
+  private reputationScoreChecker: ReputationScoreChecker;
 
   constructor() {
     this.objectChecker = new ObjectChecker();
+    this.reputationScoreChecker = new ReputationScoreChecker();
   }
 
   public checkBody(body: VoteArticleBody, location: string) {
     this.objectChecker.check(body, location);
-
-    this.checkScore(body.score, `${location}.score`);
-  }
-
-  private checkScore(score: ReputationScore, location: string) {
-    if (score !== ReputationScore.LIKE && score !== ReputationScore.DISLIKE) {
-      throw new ValueShouldBeEnum(location);
-    }
+    this.reputationScoreChecker.check(body.score, `${location}.score`);
   }
 }
