@@ -1,27 +1,16 @@
-import { ArticleSortType, ArticleStatus, ReputationScore } from './vo';
+import { DateQuery, NumberQuery } from '~/base/type';
+import { SortType } from '~/base/vo';
+
+import { ArticleStatus, ReputationScore } from './vo';
 
 export type ArticleAuthor = {
   displayName: string;
   password?: string;
 };
 
-export type ComparableNumberQuery = {
-  $gte?: number;
-  $lte?: number;
-  $gt?: number;
-  $lt?: number;
-};
-
-export type ComparableDateQuery = {
-  $gte?: Date;
-  $lte?: Date;
-  $gt?: Date;
-  $lt?: Date;
-};
-
 export type ArticleSort = {
-  createdAt?: ArticleSortType;
-  index?: ArticleSortType;
+  createdAt?: SortType;
+  index?: SortType;
 };
 
 export type CreateArticleBody = {
@@ -59,8 +48,8 @@ export type GetArticlesQuery = {
   authorUserId?: string;
   isSecret?: boolean;
   status?: ArticleStatus;
-  index?: ComparableNumberQuery;
-  createdAt?: ComparableDateQuery;
+  index?: NumberQuery;
+  createdAt?: DateQuery;
   boardCategoty?: string;
   sort?: ArticleSort;
 };

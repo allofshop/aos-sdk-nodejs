@@ -2,23 +2,22 @@ import { ValueShouldBeEnum } from '~/base/error';
 import {
   BooleanChecker,
   DateChecker,
-  NumberChecker,
+  DateQueryChecker,
+  NumberQueryChecker,
   ObjectChecker,
+  SortQueryChecker,
   StringArrayChecker,
   StringChecker,
 } from '~/base/typeChecker';
 
 import {
   ArticleAuthor,
-  ArticleSort,
-  ComparableDateQuery,
-  ComparableNumberQuery,
   CreateArticleBody,
   GetArticlesQuery,
   UpdateArticleBody,
   VoteArticleBody,
 } from './type';
-import { ArticleSortType, ArticleStatus, ReputationScore } from './vo';
+import { ArticleStatus, ReputationScore } from './vo';
 
 class AuthorChecker {
   private objectChecker: ObjectChecker;
@@ -166,15 +165,17 @@ export class GetQueryChecker {
   private stringChecker: StringChecker;
   private booleanChecker: BooleanChecker;
   private objectChecker: ObjectChecker;
-  private numberChecker: NumberChecker;
-  private dateChekcer: DateChecker;
+  private numberQueryChecker: NumberQueryChecker;
+  private dateQueryChecker: DateQueryChecker;
+  private sortQueryChecker: SortQueryChecker;
 
   constructor() {
     this.stringChecker = new StringChecker();
     this.booleanChecker = new BooleanChecker();
     this.objectChecker = new ObjectChecker();
-    this.numberChecker = new NumberChecker();
-    this.dateChekcer = new DateChecker();
+    this.numberQueryChecker = new NumberQueryChecker();
+    this.dateQueryChecker = new DateQueryChecker();
+    this.sortQueryChecker = new SortQueryChecker();
   }
 
   public checkQuery(query: GetArticlesQuery, location: string) {
@@ -214,11 +215,11 @@ export class GetQueryChecker {
     }
 
     if (query.index !== undefined) {
-      this.checkNumberQuery(query.index, `${location}.index`);
+      this.numberQueryChecker.check(query.index, `${location}.index`);
     }
 
     if (query.createdAt !== undefined) {
-      this.checkDateQuery(query.createdAt, `${location}.createdAt`);
+      this.dateQueryChecker.check(query.createdAt, `${location}.createdAt`);
     }
 
     if (query.boardCategoty !== undefined) {
@@ -229,75 +230,13 @@ export class GetQueryChecker {
     }
 
     if (query.sort !== undefined) {
-      this.checkSort(query.sort, `${location}.sort`);
+      this.sortQueryChecker.check(query.sort, `${location}.sort`);
     }
   }
 
   private checkStatus(status: ArticleStatus, location: string) {
     if (status !== ArticleStatus.DRAFT && status !== ArticleStatus.PUBLISHED) {
       throw new ValueShouldBeEnum(location);
-    }
-  }
-
-  private checkNumberQuery(
-    numberQuery: ComparableNumberQuery,
-    location: string
-  ) {
-    this.objectChecker.check(numberQuery, 'numberQuery');
-
-    if (numberQuery.$gt !== undefined) {
-      this.numberChecker.check(numberQuery.$gt, `${location}.$gt`);
-    }
-
-    if (numberQuery.$gte !== undefined) {
-      this.numberChecker.check(numberQuery.$gte, `${location}.$gte`);
-    }
-
-    if (numberQuery.$lt !== undefined) {
-      this.numberChecker.check(numberQuery.$lt, `${location}.$lt`);
-    }
-
-    if (numberQuery.$lte !== undefined) {
-      this.numberChecker.check(numberQuery.$lte, `${location}.$lte`);
-    }
-  }
-
-  private checkDateQuery(dateQuery: ComparableDateQuery, location: string) {
-    this.objectChecker.check(dateQuery, 'dateQuery');
-
-    if (dateQuery.$gt !== undefined) {
-      this.dateChekcer.check(dateQuery.$gt, `${location}.$gt`);
-    }
-
-    if (dateQuery.$gte !== undefined) {
-      this.dateChekcer.check(dateQuery.$gte, `${location}.$gte`);
-    }
-
-    if (dateQuery.$lt !== undefined) {
-      this.dateChekcer.check(dateQuery.$lt, `${location}.$lt`);
-    }
-
-    if (dateQuery.$lte !== undefined) {
-      this.dateChekcer.check(dateQuery.$lte, `${location}.$lte`);
-    }
-  }
-
-  private checkSort(sort: ArticleSort, location: string) {
-    this.objectChecker.check(sort, 'sort');
-
-    if (sort.createdAt !== undefined) {
-      if (
-        sort.createdAt !== ArticleSortType.ASC &&
-        sort.createdAt !== ArticleSortType.DESC
-      ) {
-        throw new ValueShouldBeEnum(`${location}.createdAt`);
-      }
-      if (
-        sort.index !== ArticleSortType.ASC &&
-        sort.index !== ArticleSortType.DESC
-      ) {
-        throw new ValueShouldBeEnum(`${location}.index`);
-      }
     }
   }
 }

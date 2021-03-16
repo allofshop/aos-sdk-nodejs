@@ -3,11 +3,6 @@ export enum ArticleStatus {
   PUBLISHED = 'PUBLISHED',
 }
 
-export enum ArticleSortType {
-  ASC = 'ASC',
-  DESC = 'DESC',
-}
-
 export enum ReputationScore {
   LIKE = 'LIKE',
   DISLIKE = 'DISLIKE',
