@@ -26,6 +26,7 @@ class AuthorChecker {
 
   constructor() {
     this.objectChecker = new ObjectChecker();
+    this.stringChecker = new StringChecker();
   }
 
   public check(author: ArticleAuthor, location: string) {
@@ -51,6 +52,7 @@ export class CreateBodyChecker {
     this.stringArrayChecker = new StringArrayChecker();
     this.dateChecker = new DateChecker();
     this.objectChecker = new ObjectChecker();
+    this.authorChecker = new AuthorChecker();
   }
 
   public checkBody(body: CreateArticleBody, location: string) {
