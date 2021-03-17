@@ -1,26 +1,26 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
-import { GetCategoriesQuery, GetTreeCategoriesQuery } from './type';
-import { GetQueryChecker, GetTreeQueryChecker } from './typeChecker';
+import { FindDto, FindTreeDto } from './type';
+import { FindTreeValidator, FindValidator } from './validator';
 
 export async function getCategory(categoryId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(categoryId, 'categoryId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(categoryId, 'categoryId');
 
   return await lite.request('GET', `categories/${categoryId}`);
 }
 
-export async function getCategoryTree(query: GetTreeCategoriesQuery) {
-  const getTreeQueryChecker: GetTreeQueryChecker = new GetTreeQueryChecker();
-  getTreeQueryChecker.checkQuery(query, 'query');
+export async function getCategoryTree(query: FindTreeDto) {
+  const findTreeValidator: FindTreeValidator = new FindTreeValidator();
+  findTreeValidator.validate(query, 'query');
 
   return await lite.request('GET', `categories/tree`, { query });
 }
 
-export async function getCategories(query: GetCategoriesQuery) {
-  const getQueryChecker: GetQueryChecker = new GetQueryChecker();
-  getQueryChecker.checkQuery(query, 'query');
+export async function getCategories(query: FindDto) {
+  const findValidator: FindValidator = new FindValidator();
+  findValidator.validate(query, 'query');
 
   return await lite.request('GET', `categories`, { query });
 }

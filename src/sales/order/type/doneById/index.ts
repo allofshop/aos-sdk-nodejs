@@ -1,6 +1,6 @@
 import { PayMethod } from '../../vo';
 
-export type DoneOrderBody = {
+export type DoneByIdDto = {
   resultCode: string;
   resultMessage: string;
   authenticationToken: string;

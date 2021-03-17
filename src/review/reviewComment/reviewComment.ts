@@ -1,26 +1,23 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
-import { CreateReviewCommentBody, UpdateReviewCommentBody } from './type';
-import { CreateBodyChecker, UpdateBodyChecker } from './typeChecker';
+import { CreateDto, UpdateOneByIdDto } from './type';
+import { CreateValidator, UpdateOneByIdValidator } from './validator';
 
-export async function createReviewComment(
-  reviewId: string,
-  body: CreateReviewCommentBody
-) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+export async function createReviewComment(reviewId: string, body: CreateDto) {
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
-  const createBodyChecker: CreateBodyChecker = new CreateBodyChecker();
-  createBodyChecker.check(body, 'body');
+  const createValidator: CreateValidator = new CreateValidator();
+  createValidator.validate(body, 'body');
 
   return await lite.request('POST', `reviews/${reviewId}/comments`, { body });
 }
 
 export async function getReviewComment(reviewId: string, commentId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
-  stringChecker.check(commentId, 'commentId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
+  stringValidator.validate(commentId, 'commentId');
 
   return await lite.request('GET', `reviews/${reviewId}/comments/${commentId}`);
 }
@@ -28,14 +25,14 @@ export async function getReviewComment(reviewId: string, commentId: string) {
 export async function updateReviewComment(
   reviewId: string,
   commentId: string,
-  body: UpdateReviewCommentBody
+  body: UpdateOneByIdDto
 ) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
-  stringChecker.check(commentId, 'commentId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
+  stringValidator.validate(commentId, 'commentId');
 
-  const updateBodyChecker: UpdateBodyChecker = new UpdateBodyChecker();
-  updateBodyChecker.check(body, 'body');
+  const updateOneByIdValidator: UpdateOneByIdValidator = new UpdateOneByIdValidator();
+  updateOneByIdValidator.validate(body, 'body');
 
   return await lite.request(
     'PATCH',
@@ -47,9 +44,9 @@ export async function updateReviewComment(
 }
 
 export async function deleteReviewComment(reviewId: string, commentId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
-  stringChecker.check(commentId, 'commentId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
+  stringValidator.validate(commentId, 'commentId');
 
   return await lite.request(
     'DELETE',
@@ -59,8 +56,8 @@ export async function deleteReviewComment(reviewId: string, commentId: string) {
 
 //TODO: 서버 Dto에서 query가 비어있음
 export async function getReviewComments(reviewId: string, query: any) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
   return await lite.request('GET', `reviews/${reviewId}/comments`, { query });
 }

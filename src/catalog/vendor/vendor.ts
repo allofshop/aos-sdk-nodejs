@@ -1,19 +1,19 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
-import { GetVendorsQuery } from './type';
-import { GetQueryChecker } from './typeChecker';
+import { FindDto } from './type';
+import { FindValidator } from './validator';
 
 export async function getVendor(vendorId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(vendorId, 'vendorId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(vendorId, 'vendorId');
 
   return await lite.request('GET', `vendors/${vendorId}`);
 }
 
-export async function getVendors(query: GetVendorsQuery) {
-  const getQueryChecker: GetQueryChecker = new GetQueryChecker();
-  getQueryChecker.checkQuery(query, 'query');
+export async function getVendors(query: FindDto) {
+  const findValidator: FindValidator = new FindValidator();
+  findValidator.validate(query, 'query');
 
   return await lite.request('GET', 'vendors', { query });
 }

@@ -1,23 +1,23 @@
 import { ValueShouldBeArray } from '~/base/error';
 import {
-  NumberChecker,
-  ObjectChecker,
-  StringArrayChecker,
-  StringChecker,
-} from '~/base/typeChecker';
+  NumberValidator,
+  ObjectValidator,
+  StringArrayValidator,
+  StringValidator,
+} from '~/base/validator';
 
 import { CreateDto } from '../type/create';
 import { OrderItem } from '../type/create/_orderItem';
 
 class OrderItemArrayValidator {
-  private stringChecker: StringChecker;
-  private stringArrayChecker: StringArrayChecker;
-  private numberChecker: NumberChecker;
+  private stringValidator: StringValidator;
+  private stringArrayValidator: StringArrayValidator;
+  private numberValidator: NumberValidator;
 
   constructor() {
-    this.stringChecker = new StringChecker();
-    this.stringArrayChecker = new StringArrayChecker();
-    this.numberChecker = new NumberChecker();
+    this.stringValidator = new StringValidator();
+    this.stringArrayValidator = new StringArrayValidator();
+    this.numberValidator = new NumberValidator();
   }
 
   public validate(items: OrderItem[], location: string) {
@@ -26,42 +26,42 @@ class OrderItemArrayValidator {
     }
 
     items.map((i) => {
-      this.stringChecker.check(i.product, `${location}.product`);
+      this.stringValidator.validate(i.product, `${location}.product`);
 
       if (i.productVariant !== undefined) {
-        this.stringChecker.check(
+        this.stringValidator.validate(
           i.productVariant,
           `${location}.productVariant`
         );
       }
 
       if (i.optionValues !== undefined) {
-        this.stringArrayChecker.check(
+        this.stringArrayValidator.validate(
           i.optionValues,
           `${location}.optionValues`
         );
       }
 
-      this.numberChecker.check(i.quantity, `${location}.quantity`);
+      this.numberValidator.validate(i.quantity, `${location}.quantity`);
 
       if (i.carrier !== undefined) {
-        this.stringChecker.check(i.carrier, `${location}.carrier`);
+        this.stringValidator.validate(i.carrier, `${location}.carrier`);
       }
     });
   }
 }
 
 export class CreateValidator {
-  private objectChecker: ObjectChecker;
+  private objectValidator: ObjectValidator;
   private orderItemArrayValidator: OrderItemArrayValidator;
 
   constructor() {
-    this.objectChecker = new ObjectChecker();
+    this.objectValidator = new ObjectValidator();
     this.orderItemArrayValidator = new OrderItemArrayValidator();
   }
 
   public validate(body: CreateDto, location: string) {
-    this.objectChecker.check(body, location);
+    this.objectValidator.validate(body, location);
     this.orderItemArrayValidator.validate(body.items, `${location}.items`);
   }
 }
