@@ -1,70 +1,76 @@
 import {
-  NumberChecker,
-  ObjectChecker,
-  StringArrayChecker,
-  StringChecker,
-} from '~/base/typeChecker';
+  NumberValidator,
+  ObjectValidator,
+  StringArrayValidator,
+  StringValidator,
+} from '~/base/validator';
 
 import { UpdateOneByIdDto } from '../type/updateOneById';
 import { Orderer } from '../type/updateOneById/_orderer';
 import { Recipient } from '../type/updateOneById/_recipient';
 
 class OrdererValidator {
-  private objectChecker: ObjectChecker;
-  private stringChecker: StringChecker;
+  private objectValidator: ObjectValidator;
+  private stringValidator: StringValidator;
 
   constructor() {
-    this.objectChecker = new ObjectChecker();
-    this.stringChecker = new StringChecker();
+    this.objectValidator = new ObjectValidator();
+    this.stringValidator = new StringValidator();
   }
 
-  public check(orderer: Orderer, location: string) {
-    this.objectChecker.check(orderer, location);
+  public validate(orderer: Orderer, location: string) {
+    this.objectValidator.validate(orderer, location);
 
     if (orderer.name !== undefined) {
-      this.stringChecker.check(orderer.name, `${location}.name`);
+      this.stringValidator.validate(orderer.name, `${location}.name`);
     }
 
     if (orderer.homePhone !== undefined) {
-      this.stringChecker.check(orderer.homePhone, `${location}.homePhone`);
+      this.stringValidator.validate(orderer.homePhone, `${location}.homePhone`);
     }
 
     if (orderer.mobilePhone !== undefined) {
-      this.stringChecker.check(orderer.mobilePhone, `${location}.mobilePhone`);
+      this.stringValidator.validate(
+        orderer.mobilePhone,
+        `${location}.mobilePhone`
+      );
     }
 
     if (orderer.email !== undefined) {
-      this.stringChecker.check(orderer.email, `${location}.email`);
+      this.stringValidator.validate(orderer.email, `${location}.email`);
     }
 
     if (orderer.password !== undefined) {
-      this.stringChecker.check(orderer.password, `${location}.password`);
+      this.stringValidator.validate(orderer.password, `${location}.password`);
     }
   }
 }
 
 class RecipientValidator {
-  private objectChecker: ObjectChecker;
-  private stringChecker: StringChecker;
+  private objectValidator: ObjectValidator;
+  private stringValidator: StringValidator;
 
   constructor() {
-    this.objectChecker = new ObjectChecker();
-    this.stringChecker = new StringChecker();
+    this.objectValidator = new ObjectValidator();
+    this.stringValidator = new StringValidator();
   }
 
-  public check(recipient: Recipient, location: string) {
-    this.objectChecker.check(recipient, location);
+  public validate(recipient: Recipient, location: string) {
+    this.objectValidator.validate(recipient, location);
 
     if (recipient.name !== undefined) {
-      this.stringChecker.check(recipient.name, `${location}.name`);
+      this.stringValidator.validate(recipient.name, `${location}.name`);
     }
 
     if (recipient.homePhone !== undefined) {
-      this.stringChecker.check(recipient.homePhone, `${location}.homePhone`);
+      this.stringValidator.validate(
+        recipient.homePhone,
+        `${location}.homePhone`
+      );
     }
 
     if (recipient.mobilePhone !== undefined) {
-      this.stringChecker.check(
+      this.stringValidator.validate(
         recipient.mobilePhone,
         `${location}.mobilePhone`
       );
@@ -73,37 +79,43 @@ class RecipientValidator {
 }
 
 export class UpdateOneByIdValidator {
-  private objectChecker: ObjectChecker;
+  private objectValidator: ObjectValidator;
   private ordererValidator: OrdererValidator;
   private recipientValidator: RecipientValidator;
-  private stringArrayChecker: StringArrayChecker;
-  private numberChecker: NumberChecker;
+  private stringArrayValidator: StringArrayValidator;
+  private numberValidator: NumberValidator;
 
   constructor() {
-    this.objectChecker = new ObjectChecker();
+    this.objectValidator = new ObjectValidator();
     this.ordererValidator = new OrdererValidator();
     this.recipientValidator = new RecipientValidator();
-    this.stringArrayChecker = new StringArrayChecker();
-    this.numberChecker = new NumberChecker();
+    this.stringArrayValidator = new StringArrayValidator();
+    this.numberValidator = new NumberValidator();
   }
 
   public validate(body: UpdateOneByIdDto, location: string) {
-    this.objectChecker.check(body, location);
+    this.objectValidator.validate(body, location);
 
     if (body.orderer !== undefined) {
-      this.ordererValidator.check(body.orderer, `${location}.orderer`);
+      this.ordererValidator.validate(body.orderer, `${location}.orderer`);
     }
 
     if (body.recipient !== undefined) {
-      this.recipientValidator.check(body.recipient, `${location}.recipient`);
+      this.recipientValidator.validate(body.recipient, `${location}.recipient`);
     }
 
     if (body.couponIds !== undefined) {
-      this.stringArrayChecker.check(body.couponIds, `${location}.couponIds`);
+      this.stringArrayValidator.validate(
+        body.couponIds,
+        `${location}.couponIds`
+      );
     }
 
     if (body.usingMileage !== undefined) {
-      this.numberChecker.check(body.usingMileage, `${location}.usingMileage`);
+      this.numberValidator.validate(
+        body.usingMileage,
+        `${location}.usingMileage`
+      );
     }
   }
 }

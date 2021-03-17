@@ -1,70 +1,65 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
+import { CreateDto, FindDto, UpdateOneByIdDto, VoteDto } from './type';
 import {
-  CreateReviewBody,
-  GetReviewsQuery,
-  UpdateReviewBody,
-  VoteReviewBody,
-} from './type';
-import {
-  CreateBodyChecker,
-  GetQueryChecker,
-  UpdateBodyChecker,
-  VoteBodyChecker,
-} from './typeChecker';
+  CreateValidator,
+  FindValidator,
+  UpdateOneByIdValidator,
+  VoteValidator,
+} from './validator';
 
-export async function createReview(body: CreateReviewBody) {
-  const createBodyChecker: CreateBodyChecker = new CreateBodyChecker();
-  createBodyChecker.check(body, 'body');
+export async function createReview(body: CreateDto) {
+  const createValidator: CreateValidator = new CreateValidator();
+  createValidator.validate(body, 'body');
 
   return await lite.request('POST', 'reviews', { body });
 }
 
 export async function getReview(reviewId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
   return await lite.request('GET', `reviews/${reviewId}`);
 }
 
-export async function updateReview(reviewId: string, body: UpdateReviewBody) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+export async function updateReview(reviewId: string, body: UpdateOneByIdDto) {
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
-  const updateBodyChecker: UpdateBodyChecker = new UpdateBodyChecker();
-  updateBodyChecker.check(body, 'body');
+  const updateOneByIdValidator: UpdateOneByIdValidator = new UpdateOneByIdValidator();
+  updateOneByIdValidator.validate(body, 'body');
 
   return await lite.request('PATCH', `reviews/${reviewId}`, { body });
 }
 
 export async function deleteReview(reviewId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
   return await lite.request('DELETE', `reviews/${reviewId}`);
 }
 
-export async function getReviews(query: GetReviewsQuery) {
-  const getQueryChecker: GetQueryChecker = new GetQueryChecker();
-  getQueryChecker.check(query, 'query');
+export async function getReviews(query: FindDto) {
+  const findValidator: FindValidator = new FindValidator();
+  findValidator.validate(query, 'query');
 
   return await lite.request('GET', 'reviews', { query });
 }
 
-export async function voteReview(reviewId: string, body: VoteReviewBody) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+export async function voteReview(reviewId: string, body: VoteDto) {
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
-  const voteBodyChecker: VoteBodyChecker = new VoteBodyChecker();
-  voteBodyChecker.check(body, 'body');
+  const voteValidator: VoteValidator = new VoteValidator();
+  voteValidator.validate(body, 'body');
 
   return await lite.request('POST', `reviews/${reviewId}/vote`, { body });
 }
 
 export async function cancelVoteReview(reviewId: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(reviewId, 'reviewId');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(reviewId, 'reviewId');
 
   return await lite.request('DELETE', `reviews/${reviewId}/vote`);
 }

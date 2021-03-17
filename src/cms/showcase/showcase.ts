@@ -1,9 +1,9 @@
-import { StringChecker } from '~/base/typeChecker';
+import { StringValidator } from '~/base/validator';
 import * as lite from '~/lite';
 
 export async function getShowcase(slug: string) {
-  const stringChecker: StringChecker = new StringChecker();
-  stringChecker.check(slug, 'slug');
+  const stringValidator: StringValidator = new StringValidator();
+  stringValidator.validate(slug, 'slug');
 
   return await lite.request('GET', `showcases/${slug}`);
 }

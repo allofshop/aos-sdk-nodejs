@@ -1,41 +1,44 @@
 import {
-  NumberChecker,
-  ObjectChecker,
-  StringArrayChecker,
-  StringChecker,
-} from '~/base/typeChecker';
+  NumberValidator,
+  ObjectValidator,
+  StringArrayValidator,
+  StringValidator,
+} from '~/base/validator';
 
 import { UpdateItemByIdDto } from '../type/updateItemById';
 
 export class UpdateItemByIdValidator {
-  private objectChecker: ObjectChecker;
-  private stringChecker: StringChecker;
-  private stringArrayChecker: StringArrayChecker;
-  private numberChecker: NumberChecker;
+  private objectValidator: ObjectValidator;
+  private stringValidator: StringValidator;
+  private stringArrayValidator: StringArrayValidator;
+  private numberValidator: NumberValidator;
 
   constructor() {
-    this.objectChecker = new ObjectChecker();
-    this.stringChecker = new StringChecker();
-    this.stringArrayChecker = new StringArrayChecker();
-    this.numberChecker = new NumberChecker();
+    this.objectValidator = new ObjectValidator();
+    this.stringValidator = new StringValidator();
+    this.stringArrayValidator = new StringArrayValidator();
+    this.numberValidator = new NumberValidator();
   }
 
   public validate(body: UpdateItemByIdDto, location: string) {
-    this.objectChecker.check(body, location);
+    this.objectValidator.validate(body, location);
 
     if (body.quantity !== undefined) {
-      this.numberChecker.check(body.quantity, `${location}.quantity`);
+      this.numberValidator.validate(body.quantity, `${location}.quantity`);
     }
 
     if (body.productVariant !== undefined) {
-      this.stringChecker.check(
+      this.stringValidator.validate(
         body.productVariant,
         `${location}.productVariant`
       );
     }
 
     if (body.couponIds !== undefined) {
-      this.stringArrayChecker.check(body.couponIds, `${location}.couponIds`);
+      this.stringArrayValidator.validate(
+        body.couponIds,
+        `${location}.couponIds`
+      );
     }
   }
 }

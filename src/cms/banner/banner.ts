@@ -1,11 +1,11 @@
 import * as lite from '~/lite';
 
-import { GetBannersQuery } from './type';
-import { GetQueryChecker } from './typeChecker';
+import { FindDto } from './type';
+import { FindValidator } from './validator';
 
-export async function getBanners(query: GetBannersQuery) {
-  const getQueryChecker: GetQueryChecker = new GetQueryChecker();
-  getQueryChecker.checkQuery(query, 'query');
+export async function getBanners(query: FindDto) {
+  const findValidator: FindValidator = new FindValidator();
+  findValidator.validate(query, 'query');
 
   return await lite.request('GET', 'banners', { query });
 }
