@@ -6,7 +6,7 @@ import {
   StringValidator,
 } from '~/base/validator';
 
-import { UpdateSubscriptionById } from '../type';
+import { UpdateSubscriptionByIdDto } from '../type';
 import { Orderer } from '../type/updateSubscriptionById/_orderer';
 import { Period } from '../type/updateSubscriptionById/_period';
 import { Plan } from '../type/updateSubscriptionById/_plan';
@@ -161,7 +161,7 @@ export class UpdateSubscriptionByIdValidator {
     this.scheduleValidator = new ScheduleValidator();
   }
 
-  public validate(body: UpdateSubscriptionById, location: string) {
+  public validate(body: UpdateSubscriptionByIdDto, location: string) {
     this.objectValidator.validate(body, location);
 
     if (body.orderer !== undefined) {

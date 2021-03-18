@@ -11,6 +11,7 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "sourceMap": true,
+    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
