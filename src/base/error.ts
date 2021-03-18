@@ -60,3 +60,12 @@ export class ValueShouldBeNumber extends Error {
     this.message = `${this.location} should be number`;
   }
 }
+
+export class InvalidKeyInObject extends Error {
+  private location: string;
+  constructor(location: string) {
+    super();
+    this.location = location;
+    this.message = `${this.location} is invalid key`;
+  }
+}

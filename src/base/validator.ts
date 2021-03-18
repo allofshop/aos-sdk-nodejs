@@ -1,4 +1,5 @@
 import {
+  InvalidKeyInObject,
   ValueShouldBeArray,
   ValueShouldBeBoolean,
   ValueShouldBeDate,
@@ -45,7 +46,7 @@ export class StringArrayValidator {
 
 export class DateValidator {
   public validate(value: Date, location: string) {
-    if (value instanceof Date) {
+    if (!(value instanceof Date)) {
       throw new ValueShouldBeDate(location);
     }
   }
@@ -79,6 +80,17 @@ export class NumberQueryValidator {
   public validate(query: NumberQuery, location: string) {
     this.objectValidator.validate(query, location);
 
+    for (const property in query) {
+      if (
+        property !== '$gt' &&
+        property !== '$gte' &&
+        property !== '$lt' &&
+        property !== '$lte'
+      ) {
+        throw new InvalidKeyInObject(`${location}.${property}`);
+      }
+    }
+
     if (query.$gt !== undefined) {
       this.numberValidator.validate(query.$gt, `${location}.$gt`);
     }
@@ -108,6 +120,17 @@ export class DateQueryValidator {
 
   public validate(query: DateQuery, location: string) {
     this.objectValidator.validate(query, location);
+
+    for (const property in query) {
+      if (
+        property !== '$gt' &&
+        property !== '$gte' &&
+        property !== '$lt' &&
+        property !== '$lte'
+      ) {
+        throw new InvalidKeyInObject(`${location}.${property}`);
+      }
+    }
 
     if (query.$gt !== undefined) {
       this.dateValidator.validate(query.$gt, `${location}.$gt`);
